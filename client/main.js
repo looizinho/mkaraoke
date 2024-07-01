@@ -1,22 +1,27 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
+ const Musicas = new Mongo.Collection('musicas');
+
 import './main.html';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
+var getMusicas = new ReactiveVar()
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
-});
+Template.listMusics.onRendered(function listMusicsOnRendered() {
+  Meteor.defer(async () => {
+    await Meteor.call('getMusics', 'anitta', (err, res) => {
+      getMusicas.set(res)
+    })
+  })
+})
+
+Template.listMusics.helpers({
+  getMusics() {
+    // console.log(getMusicas.get());
+    return getMusicas.get()
+  }
+})
+
+Template.listMusics.events({
+})  

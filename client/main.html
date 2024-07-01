@@ -4,23 +4,17 @@
 </head>
 
 <body>
-  <h1>Hello World!</h1>
-
-  {{> hello}}
-  {{> info}}
+  <h1>MKaraoke</h1>
+  {{> listMusics}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
-
-<template name="info">
-  <h2>Learn Meteor!</h2>
+<template name="listMusics">
+  <h2>Músicas</h2>
+  <h3>Pesquisa por: ANITTA</h3>
   <ul>
-    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
+    {{#each music in getMusics}}
+    <li><a href="{{music.id}}">{{music.id}}</a> - {{music.musica}}</li>
+    
+    {{/each}}
   </ul>
 </template>
